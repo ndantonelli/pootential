@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "781792207085",
+    "firebase_url": "https://pootential-b999f.firebaseio.com",
+    "project_id": "pootential-b999f",
+    "storage_bucket": "pootential-b999f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781792207085:android:4d45b491019ed395",
+        "android_client_info": {
+          "package_name": "com.pootentially.pootential"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781792207085-36h3ic7ccc57dvhv4m9oht746p8hbfu1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqMNeEpKLsP1yocoJh9gBBUsOVnSArMIQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

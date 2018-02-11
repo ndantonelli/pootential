@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="outer_space">16dp</dimen>
+    <dimen name="content_space_sm">4dp</dimen>
+    <dimen name="content_space_md">8dp</dimen>
+    <dimen name="content_space_lg">12dp</dimen>
+</resources>
