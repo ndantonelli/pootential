@@ -1,6 +1,5 @@
 package com.pootentially.pootential.utility.firebase.models
 
-import com.google.firebase.firestore.GeoPoint
 import com.mapbox.mapboxsdk.annotations.Marker
 import com.mapbox.mapboxsdk.annotations.MarkerOptions
 import com.mapbox.mapboxsdk.geometry.LatLng
@@ -9,10 +8,11 @@ import java.util.Date
 /**
  * Created by nick on 2/1/18.
  */
-class Restroom(
+data class Restroom(
     var id: String = "",
-    var locationGeoPoint: GeoPoint? = null,
     var name: String = "",
+    var lat: Double = 0.0,
+    var lon: Double = 0.0,
     var female: Boolean = false,
     var male: Boolean = false,
     var family: Boolean = false,
@@ -37,8 +37,8 @@ class Restroom(
     var marker: Marker? = null
 
     fun getMarkerOptions(): MarkerOptions?{
-        if (markerOptions == null && this.locationGeoPoint != null) {
-            markerOptions = MarkerOptions().position(LatLng(this.locationGeoPoint?.latitude!!, this.locationGeoPoint?.longitude!!))
+        if (markerOptions == null) {
+            markerOptions = MarkerOptions().position(LatLng(lat, lon))
         }
         return markerOptions
     }

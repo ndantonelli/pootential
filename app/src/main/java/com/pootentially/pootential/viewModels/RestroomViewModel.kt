@@ -32,20 +32,20 @@ class RestroomViewModel: ViewModel() {
             restroomListener?.remove()
         }
         restroomListener = firestoreRef.collection("restrooms")
-                //yeah this doesn't really work, but it sort of works...
-                //firestore doesn't support mutli term queries on different fields
-                //it does narrow it down some, but not a ton
-                .whereGreaterThanOrEqualTo("locationGeoPoint", lowerGeoPoint)
-                .whereLessThanOrEqualTo("locationGeoPoint", greaterGeoPoint)
+                .whereGreaterThanOrEqualTo("lon", greaterGeoPoint.longitude)
+                .whereLessThanOrEqualTo("lon", lowerGeoPoint.longitude)
                 .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
             if(firebaseFirestoreException != null){
                 //TODO: manage the error
             }
             val changedRestrooms: MutableList<ChangedRestroom> = mutableListOf()
             querySnapshot.documentChanges.forEach{
-                val diffedRestroom = diffRestroom(it.document.toObject(Restroom::class.java), it.type)
-                if(diffedRestroom != null) {
-                    changedRestrooms.add(diffedRestroom)
+                val restroom = it.document.toObject(Restroom::class.java)
+                if(restroom.lat < greaterGeoPoint.latitude && restroom.lat > lowerGeoPoint.latitude) {
+                    val diffedRestroom = diffRestroom(restroom, it.type)
+                    if (diffedRestroom != null) {
+                        changedRestrooms.add(diffedRestroom)
+                    }
                 }
             }
             restroomChanges.value = changedRestrooms
@@ -90,8 +90,11 @@ class RestroomViewModel: ViewModel() {
         val changedRestrooms: MutableList<ChangedRestroom> = mutableListOf()
         val restroomsToRemove: MutableList<Restroom> = mutableListOf()
         displayedRestrooms.forEach {
-            if(it.locationGeoPoint!! < lowerGeoPoint
-                    || it.locationGeoPoint!! > higherGeoPoint){
+            if(it.lon < higherGeoPoint.longitude
+                || it.lon > lowerGeoPoint.longitude
+                || it.lat > higherGeoPoint.latitude
+                || it.lat < lowerGeoPoint.latitude
+            ){
                 changedRestrooms.add(ChangedRestroom(Enumerations.ChangedStatus.REMOVED, it))
                 restroomsToRemove.add(it)
             }
